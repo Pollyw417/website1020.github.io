@@ -1,0 +1,32 @@
+---
+title: "1017 website note"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+# This is Jeff's awesome website
+
+![](https://media.giphy.com/media/drXGoW1iudhKw/giphy.gif)
+
+## links to external website
+
+* [Google](https://www.google.com/)
+
+## links to page within the stie 
+[about me](about.html)
+
+You have to create the page as a rmarkdown to html document first 
+
+## local image
+
+![](image.webp)
+
+
+## create navigation and multiple pages
+
+create yml document 
+
+navbar -- create the navigation bar
+
