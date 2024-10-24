@@ -1,0 +1,79 @@
+---
+title: "1022-plotly and dashboard"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+# example of plotly
+
+```{r}
+library(tidyverse)
+library(p8105.datasets)
+library(plotly)
+```
+```{r}
+data(nyc_airbnb)
+
+nyc_airbnb = 
+  nyc_airbnb |> 
+  mutate(rating = review_scores_location / 2) |>
+  select(
+    neighbourhood_group, neighbourhood, rating, price, room_type, lat, long) |>
+  filter(
+    !is.na(rating), 
+    neighbourhood_group == "Manhattan",
+    room_type == "Entire home/apt",
+    price %in% 100:500)
+  
+```
+
+
+# plotly plots 
+
+## scatterplot
+
+text = --- create text label for each marker 
+type = --- type of plot 
+
+
+```{r height = 20, width = 8}
+nyc_airbnb|>
+  mutate(text_label = str_c("Price: $", price,"\nRating:", rating))|>
+  plot_ly(x=~lat,y=~long, color = ~price, alpha = 0.5, text = ~text_label,
+          type = "scatter", mode="markers")
+```
+
+
+## boxplot 
+
+```{r}
+nyc_airbnb|>
+  plot_ly(y=~price, x = ~neighbourhood, color = ~neighbourhood, type = "box")
+```
+
+## bar plot 
+
+```{r}
+nyc_airbnb|>
+  count(neighbourhood)|>
+  mutate(neighbourhood = fct_reorder(neighbourhood,n))|>
+  plot_ly(x = ~neighbourhood, y= ~n, color = ~neighbourhood, type = "bar", colors = "viridis")
+```
+
+
+##ggplotly
+
+to transform your plot from ggplot to plotly 
+
+```{r}
+scatter_ggplot = 
+  nyc_airbnb |>
+  ggplot(aes(x = lat, y = long, color = price)) +
+  geom_point(alpha = 0.25) +
+  coord_cartesian()
+
+ggplotly(scatter_ggplot)
+```
+

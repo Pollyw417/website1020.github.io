@@ -24,7 +24,7 @@ You have to create the page as a rmarkdown to html document first
 ![](image.webp)
 
 
-## create navigation and multiple pages
+## create navigation 
 
 create yml document 
 
